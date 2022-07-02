@@ -1,42 +1,45 @@
 package ju;
 
+//1371번 가장 많은 글자 by soram
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 class Main {  
   public static void main(String args[]) throws IOException{ 
     Scanner sc = new Scanner(System.in);
-    int N = sc.nextInt();//몇개의 단어인지 정수를 입력받음
-    String[] s = new String[N]; 
+    //char[] s = new char[2500]; 
+    int[] alpha = new int[26];//알파벳을 담을 배열
+    int index,max=0;
+    String str;
+ 
     
-    sc.nextLine();
 
-    for(int i=0;i<N;i++){
-      s[i]=sc.nextLine();
-    }
-  Arrays.sort(s,new Comparator<String>(){ //임시 클래스를 선언
-    public int compare(String s1,String s2){
-      if(s1.length()==s2.length()){
-        //단어의 길이가 같을 경우
-        return s1.compareTo(s2);//아스키코드값으로비교 s1>s2 :1,s1<s2 :-1
-      } else {
-        //단어의 길이가 다를 경우
-        return s1.length()-s2.length();//s1>s2 : 양수
-      //양수가 반환되면 위치가 서로 바뀌게 되고,음수가 반환되면 위치가 바뀌지않는다.
+    while(sc.hasNextLine()){
+      str = sc.nextLine();
+      for(int i=0;i<str.length();i++){
+        if(!(str.charAt(i)==' ')){
+          index = str.charAt(i)-'a';//a의 ascii code는 97
+        alpha[index]++;    
+        }
+        
       }
     }
-  });
-    System.out.println(s[0]);
-    for(int i=1;i<N;i++){
-      if(!s[i].equals(s[i-1])){//앞단어와 중복된 경우 이 단어는 출력x
-        System.out.println(s[i]);
-      }
+    
+    for(int j=0;j<alpha.length;j++){
+        if(alpha[j]>alpha[max])
+        	max=j;
+        
+        }
+    int key=alpha[max];
+    for(int k=0;k<alpha.length;k++) {
+    	if(alpha[k]==key)
+    		System.out.print((char)(k+'a'));
+    	
     }
+    
     sc.close();
     
     
     
-  } 
+  }
 }
